@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>地図アプリ</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        h1 {
+            padding: 0;
+            margin: 0;
+            font-size: 50%;
+        }
+    </style>
+    <!-- Tailwind CSS の CDN リンクを追加 -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-300">
+    <!-- コンテンツ表示画面 -->
+
+    <div class="container mx-auto pt-2 flex flex-col lg:flex-row justify-center">
+        <!-- 左側 -->
+        <section class="w-full lg:w-1/2 px-2 mb-4 lg:mb-0">
+            <div class="w-full p-6 border bg-green-100 border-gray-300 rounded-lg">
+                <div><h1 class="inline-block w-full bg-green-500 text-white text-center mb-3">正恵さんMAP</h1>
+                </div>
+                    <!-- 地図表示画面 -->
+            <div id="myMap" class="w-full h-96"></div>
+        </section>
+
+        <!-- 右側 -->
+        <!-- 地図の説明表示画面 -->
+        <section class="w-full lg:w-1/2 px-2">
+            <div class="w-full h-full p-6  border bg-blue-100 border-gray-300 rounded-lg">
+                <div>
+                    <p class="inline-block w-full bg-blue-500 text-white text-center">重要拠点説明</p>
+                    <ol class="list-decimal ml-8">
+                        <li class="mb-2">本田診療所:森先生、(水)百年体操、(木)リハビリ</li>
+                        <li class="mb-2">ダミー原さん</li>
+                        <li class="mb-2">かおり鍼灸整骨院、月、金は予約不要</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+        </main>
+
+        <!-- JQuery -->
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+        <!-- JQuery -->
+
+        <!-- Firebase API Key -->
+        <!-- <script src="firebaseApiKey.js"></script> -->
+
+
+        <script
+            src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=[mykeycodeを削除済み]'
+            async defer></script>
+        <script src="./BmapQuery.js"></script>
+        <script>
+            //****************************************************************************************
+            // BingMaps&BmapQuery
+            //****************************************************************************************
+            //Init
+            function GetMap() {
+                //------------------------------------------------------------------------
+                //1. Instance
+                //------------------------------------------------------------------------
+                const map = new Bmap("#myMap");
+
+                //------------------------------------------------------------------------
+                //2. Display Map
+                //------------------------------------------------------------------------
+                map.startMap(34.723675667535076, 135.38670533052712, "load", 15); //The place is Bellevue.
+
+                //----------------------------------------------------
+                //3. Add Pushpin
+                // pin(lat, lon, "color", [drag:true|false], [click:true|false], [hover:true|false], [visible:true|false]);
+                //----------------------------------------------------
+                let pin = map.pin(34.723675667535076, 135.38670533052712, "#0075c2");
+                let pin2 = map.pin(34.72288903803865, 135.38634439290843, "#0075c2");
+                let pin3 = map.pin(34.72451842406412, 135.3871978253828, "#0075c2");
+
+                //----------------------------------------------------
+                //4. Add Infobox-HTML
+                // infoboxHtml(lat, lon, html);
+                //----------------------------------------------------
+                map.infoboxHtml(34.723675667535076, 135.38670533052712, '<div style="background:yellow;">1.本田診療所</div>');
+                map.infoboxHtml(34.72288903803865, 135.38634439290843, '<div style="background:yellow;">2.(ダミー）原さん</div>');
+                map.infoboxHtml(34.72451842406412, 135.3871978253828, '<div style="background:yellow;">3.かおり鍼灸整骨院</div>');
+                map.infoboxHtml(34.723675667535076, 135.38670533052712, '<div style="background:yellow;">1.本田診療所</div>');
+                map.infoboxHtml(34.723675667535076, 135.38670533052712, '<div style="background:yellow;">1.本田診療所</div>');
+
+
+                //----------------------------------------------------
+                //3. Add Infobox
+                // infobox(lat, lon, "title", "description");
+                //----------------------------------------------------
+                // map.infobox(34.723675667535076, 135.38670533052712, "Title", "Description");
+
+            }
+        </script>
+
+</body>
+
+</html>
